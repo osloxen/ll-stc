@@ -1,0 +1,122 @@
+
+
+service: STC-Service
+
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  timeout: 30
+  region: us-west-2
+#  memorySize: 3008
+
+  stage: dev
+#  stage: prodGreen
+#  stage: prodBlue
+
+
+
+
+functions:
+
+  getLunchDetails:
+    handler: front-office-handler.getLunchDetails
+    events:
+            - http:
+                path: /lunch
+                method: get
+
+  # getScheduleSneakPeek:
+  #   handler: bbhsHandler.getAllCalendarDataSchedSummary
+  #   events:
+  #           - http:
+  #               path: /sched-sneak-peek
+  #               method: get
+  #
+  #
+  # getAllActivities:
+  #   handler: bbhsHandler.getAllArtsAndActivities
+  #   events:
+  #           - http:
+  #               path: /activities/activities-schedule
+  #               method: get
+  #
+  #
+  # getActivityFromCalendar:
+  #   handler: bbhsHandler.getArtsAndActivitiesFromCalendar
+  #   events:
+  #           - http:
+  #               path: /activities/schedule/{activity}
+  #               method: get
+  #
+  #
+  # getSportsTeamSchedule:
+  #   handler: bbhsHandler.getTeamScheduleFromCalendar
+  #   events:
+  #           - http:
+  #               path: /sports/schedule/{sport}
+  #               method: get
+  #
+  #
+  # getCoachInfo:
+  #   handler: bbhsHandler.getCoachInfo
+  #   events:
+  #           - http:
+  #               path: /sports/coaches/{sport}
+  #               method: get
+  #
+  #
+  # getTwitterFeed:
+  #   handler: bbhsHandler.getTwitterFeed
+  #   events:
+  #           - http:
+  #               path: /sports/twitter/{sport}
+  #               method: get
+  #
+  #
+  # getActivityPictures:
+  #   handler: bbhsHandler.getActivityPictures
+  #   events:
+  #           - http:
+  #               path: /sports/pictures/{sport}
+  #               method: get
+  #
+  #
+  # getActivityKey:
+  #   handler: bbhsHandler.getActivityKey
+  #   events:
+  #           - http:
+  #               path: /sports/key/{sport}
+  #               method: get
+  #
+  #
+  #
+  # getTeamRoster:
+  #   handler: bbhsHandler.getTeamRoster
+  #   events:
+  #           - http:
+  #               path: /sports/roster/{sport}
+  #               method: get
+  #
+  #
+  # getSportAnnouncement:
+  #   handler: bbhsHandler.getSportAnnouncement
+  #   events:
+  #           - http:
+  #               path: /sports/announcement/{sport}
+  #               method: get
+  #
+  #
+  # getSportTryoutInfo:
+  #   handler: bbhsHandler.getTryoutInfo
+  #   events:
+  #           - http:
+  #               path: /sports/tryouts/{sport}
+  #               method: get
+  #
+  # getSport:
+  #   handler: bbhsHandler.getSportDetails
+  #   events:
+  #           - http:
+  #               path: /sports/{sport}
+  #               method: get

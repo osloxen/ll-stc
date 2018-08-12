@@ -1,0 +1,22 @@
+{
+  "name": "bbhs-services",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Berge",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25",
+    "async": "^2.6.1",
+    "clean-array": "^1.0.0",
+    "https": "^1.0.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.14",
+    "public-google-calendar": "^0.2.0",
+    "stripchar": "^1.2.1"
+  }
+}
