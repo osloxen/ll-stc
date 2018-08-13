@@ -21,11 +21,9 @@ var utilities = require('utilities.js');
 
 
 
-
-
 exports.getLunchDetails = function(event, context, callback) {
 
-  console.log('Inside getActivitySchedule');
+  console.log('Inside getLunchDetails');
 
   console.log('event: ', event);
   console.log('pathParameters: ', event.pathParameters);
@@ -43,9 +41,7 @@ exports.getLunchDetails = function(event, context, callback) {
   async.waterfall([
           function(callback) {
 
-          googleCalendarData.getGoogleLunchCalendarData(
-                            lunchDate,
-                            callback);
+          googleCalendarData.getGoogleLunchCalendarData(lunchDate, callback);
         },
         function(scheduleArray, callback) {
           console.log('end of getGoogleLunchCalendarData Waterfall: ',scheduleArray);
@@ -64,59 +60,40 @@ exports.getLunchDetails = function(event, context, callback) {
         }
   ]);
 
-} //end of getActivitySchedule
+} //end of getLunchDetails
 
 
 
+exports.getTeacherHomework = function(event, context, callback) {
 
-
-exports.getTeamScheduleFromCalendar = function(event, context, callback) {
-
-  console.log('Inside getTeamScheduleFromCalendar');
+  console.log('Inside getTeacherHomework');
 
   console.log('event: ', event);
   console.log('pathParameters: ', event.pathParameters);
   console.log('query string parameters: ', event.queryStringParameters);
 
-  var sportName = event.pathParameters.sport;
-  var squad = event.queryStringParameters.squad;
-  var gender = event.queryStringParameters.gender;
-  var eventType = "game";
+  var teacher = undefined;
 
-  if (event.queryStringParameters.eventType != undefined) {  // if left off parameters just get games
-    eventType = event.queryStringParameters.eventType;
+  if (event.queryStringParameters.teacher != undefined) {  // if left off parameters just get games
+    teacher = event.queryStringParameters.teacher;
   }
 
-  console.log('sport: ', sportName);
-  console.log('squad: ', squad);
-  console.log('gender: ', gender);
-  console.log('event type: ', eventType);
+  // TODO: end processing here if there is no teacher given.
 
   async.waterfall([
           function(callback) {
 
-          googleCalendarData.getGoogleSportsCalendarData(
-                            sportName,
-                            squad, // varsity, jv or freshman
-                            gender,
-                            eventType, // game or practice (or both???)
-                            callback);
+          googleCalendarData.getGoogleTeacherCalendarData(teacher, callback);
         },
         function(scheduleArray, callback) {
-          console.log('end of getGoogleSportsCalendarData Waterfall: ',scheduleArray);
+          console.log('end of getGoogleLunchCalendarData Waterfall: ',scheduleArray);
 
           var scheduleObject = {};
           scheduleObject.schedule = scheduleArray;
 
           const res = {
               "statusCode": 200,
-              "headers": {
-                'Content-Type': 'application/json',
-                "X-Requested-With": '*',
-                "Access-Control-Allow-Headers": 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
-                "Access-Control-Allow-Origin": '*',
-                "Access-Control-Allow-Methods": 'GET,HEAD,OPTIONS,POST,PUT'
-              },
+              "headers": utilities.getHeaders(),
               "body": JSON.stringify(scheduleObject) // body must be returned as a string
             };
 
@@ -125,4 +102,4 @@ exports.getTeamScheduleFromCalendar = function(event, context, callback) {
         }
   ]);
 
-} //end of getTeamScheduleFromCalendar
+} //end of getTeacherHomework

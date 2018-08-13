@@ -19,6 +19,15 @@ provider:
 
 functions:
 
+
+
+  getTeacherHomework:
+    handler: front-office-handler.getTeacherHomework
+    events:
+            - http:
+                path: /homework
+                method: get
+
   getLunchDetails:
     handler: front-office-handler.getLunchDetails
     events:

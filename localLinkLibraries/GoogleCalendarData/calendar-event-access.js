@@ -9,9 +9,15 @@ var moment = require('moment');
 var PublicGoogleCalendar = require('public-google-calendar');
 
 var lunchCalendar = new PublicGoogleCalendar({ calendarId: 'rdo5he40sbe79r5ei2ph1kp92c@group.calendar.google.com' });
+var mrTurnerCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
 
 
+function returnTeacherCalendar(teacherName) {
 
+  console.log('inside returnTeacherCalendar');
+
+  return mrTurnerCalendar;
+}
 
 
 function GetGoogleCalendarData(params ,callerCallback) {
@@ -25,16 +31,17 @@ function GetGoogleCalendarData(params ,callerCallback) {
     console.log('inside initialize');
 
     if (params.lunchDate != undefined) {
-      console.log('Lunch Date =-> ', eventType);
+      console.log('Lunch Date =-> ', params.lunchDate);
       console.log('Processing Lunch Data');
+    } else if (params.teacher != undefined) {
+      self.teacher = params.teacher;
+      console.log('Teacher =-> ', self.teacher);
+      console.log('Processing Teacher Calendar data');
     } else {
       console.log('NO Known parameters used.');
     }
 
-    self.lunchSchedule = [];
     self.schedule = [];
-    self.goldDaysSchedule = [];
-    self.greenDaysSchedule = [];
     self.alexaResponse = null;
 
     callback();
@@ -150,19 +157,23 @@ function GetGoogleCalendarData(params ,callerCallback) {
   } // end of processCalenderData
 
 
-  this.getSchoolActivitiesData = function(callback) {
+  this.getTeacherCalendarData = function(callback) {
 
-    console.log('inside getSchoolActivitiesData');
+    console.log('inside getTeacherCalendarData');
 
-    activitiesCalendar.getEvents(function(err, events) {
+    var teacherCalendar = returnTeacherCalendar(self.teacher);
+
+    teacherCalendar.getEvents(function(err, events) {
       if (err) { return console.log(err.message); }
 
       processCalenderData(self.schedule, events);
 
+      self.finalFilteredSchedule = self.schedule;  //TODO This is a shortcut!!!
+
       callback();
     });
 
-  } // end of this.getSchoolActivitiesData
+  } // end of this.getTeacherCalendarData
 
 
 
@@ -337,7 +348,33 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
 
 
-exports.getGoogleLunchCalendarData = function(date, callerCallback) {
+exports.getGoogleTeacherCalendarData = function(teacher, callerCallback) {
+
+  console.log('*** inside getGoogleTeacherCalendarData ***');
+  console.log('Teacher: ', teacher);
+
+  var params = {};
+  params.teacher = teacher;
+
+  var getGoogleCalendarData = new GetGoogleCalendarData(params,
+                                                  callerCallback);
+
+  async.waterfall([
+
+    // IT ALL BEGINS HERE
+    getGoogleCalendarData.initialize,
+    getGoogleCalendarData.getTeacherCalendarData,
+    getGoogleCalendarData.sortTheArray,
+    getGoogleCalendarData.callTheCallback
+  ]
+);
+
+}; // end of getGoogleTeacherCalendarData
+
+
+
+
+exports.getGoogleLunchCalendarData = function(lunchDate, callerCallback) {
 
   console.log('*** inside getGoogleLunchCalendarData ***');
   console.log('Lunch Date: ', lunchDate);
@@ -352,10 +389,10 @@ exports.getGoogleLunchCalendarData = function(date, callerCallback) {
 
     // IT ALL BEGINS HERE
     getGoogleCalendarData.initialize,
-    getGoogleCalendarData.getLunchSchedule,
+    getGoogleCalendarData.getLunchCalendarData,
     getGoogleCalendarData.sortTheArray,
     getGoogleCalendarData.callTheCallback
   ]
 );
 
-}; // end of getGoogleSportsCalendarData
+}; // end of getGoogleLunchCalendarData
