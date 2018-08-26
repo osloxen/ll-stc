@@ -20,29 +20,49 @@ var utilities = require('utilities.js');
 
 
 
+function usesGoogleCalendar(identifier) {
 
-exports.getLunchDetails = function(event, context, callback) {
+  console.log('inside usesGoogleCalendar');
 
-  console.log('Inside getLunchDetails');
+  return true;
+}
+
+
+
+
+exports.getHomework = function(event, context, callback) {
+
+  console.log('Inside getSubjectHomework');
 
   console.log('event: ', event);
   console.log('pathParameters: ', event.pathParameters);
   console.log('query string parameters: ', event.queryStringParameters);
 
-  var lunchDate = undefined;
+  var identifier = undefined;
 
-  if (event.queryStringParameters.lunchDate != undefined) {  // if left off parameters just get games
-    lunchDate = event.queryStringParameters.lunchDate;
-    console.log('lunch date: ', lunchDate);
+  if (event.queryStringParameters.id != undefined) {
+    identifier = event.queryStringParameters.id;
+    console.log('Using parameter id of =-> ', identifier);
+  } else {
+    console.log('ERROR - No Subject or teacher found.  Return some error code.');
   }
 
-
-  // TODO: Should make sure the lunch date is in the correct format
+  // TODO: end processing here if there is no teacher given.
 
   async.waterfall([
           function(callback) {
 
-          googleCalendarData.getGoogleLunchCalendarData(lunchDate, callback);
+            // TODO: add code to decide to get data from spreadsheet or calendar
+
+          if (usesGoogleCalendar(identifier)) {  // this always returns true.  fix it!
+            console.log(identifier + ' uses Google Calendar data.');
+            googleCalendarData.getHomeworkGoogleCalendarData(identifier, callback);
+          } else {
+            console.log('Does NOT use Google Calendar.  Using Spreadsheet data.');
+            // TODO add spreadsheet access here.  Update usesGoogleCalendar to choose
+          }
+
+
         },
         function(scheduleArray, callback) {
           console.log('end of getGoogleLunchCalendarData Waterfall: ',scheduleArray);
@@ -61,4 +81,4 @@ exports.getLunchDetails = function(event, context, callback) {
         }
   ]);
 
-} //end of getLunchDetails
+} //end of getSubjectHomework

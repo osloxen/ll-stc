@@ -19,10 +19,15 @@ provider:
 
 functions:
 
+  getAllActivities:
+    handler: front-office-handler.getAllActivities
+    events:
+            - http:
+                path: /activities
+                method: get
 
-
-  getTeacherHomework:
-    handler: front-office-handler.getTeacherHomework
+  getHomework:
+    handler: academic-subject-handler.getHomework
     events:
             - http:
                 path: /homework
