@@ -47,6 +47,9 @@ exports.getActivity = function(event, context, callback) {
   if (event.queryStringParameters.id != undefined) {
     identifier = event.queryStringParameters.id;
     console.log('Using parameter id of =-> ', identifier);
+  } else if (event.queryStringParameters.activityId != undefined) {
+    identifier = event.queryStringParameters.activityId;
+    console.log('Using activity parameter id of =-> ', identifier);
   } else {
     console.log('ERROR - No Subject or teacher found.  Return some error code.');
   }

@@ -8,15 +8,20 @@ var moment = require('moment');
 
 var PublicGoogleCalendar = require('public-google-calendar');
 
+// HOMEWORK identifiers
 var lunchCalendar = new PublicGoogleCalendar({ calendarId: 'rdo5he40sbe79r5ei2ph1kp92c@group.calendar.google.com' });
 var mrTurnerCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
 var algebraCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
 var preAlgebraCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
 
+// ACTIVITY identifiers
+var gradeSixSoccer = new PublicGoogleCalendar({ calendarId: 'eslpummccchujmnpp6l8r2vtik@group.calendar.google.com' });
+
 
 function returnGoogleCalendarObject(identifier) {
 
   console.log('inside returnCalendarData');
+  console.log('identifier is =-> ', identifier);
 
   var googleCalendarObject = undefined;
 
@@ -29,6 +34,9 @@ function returnGoogleCalendarObject(identifier) {
       break;
     case "pre-algebra":
       googleCalendarObject = preAlgebraCalendar;
+      break;
+    case "grade-six-soccer":
+      googleCalendarObject = gradeSixSoccer;
       break;
     default:
       console.log('ERROR!!! Did not find a Google Calendar object for your ID =-> ', identifier);
@@ -55,7 +63,11 @@ function GetGoogleCalendarData(params ,callerCallback) {
     } else if (params.id != undefined) {
       self.homeworkIdentifier = params.id;
       console.log('identifier =-> ', self.homeworkIdentifier);
-      console.log('Processing Homework Calendar data');
+      console.log('Processing HOMEWORK Calendar data');
+    } else if (params.activityId != undefined) {
+      self.activityIdentifier = params.activityId;
+      console.log('identifier =-> ', self.activityIdentifier);
+      console.log('Processing ACTIVITY Calendar data');
     } else {
       console.log('NO Known parameters used.');
     }
@@ -65,64 +77,6 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
     callback();
   };
-
-
-  // Use this function to determine if it is a green or gold or unified day.
-    function processTypeOfDay(arrayToPopulate, events) {
-
-      console.log('inside processTypeOfDay');
-
-      console.log('events --> ', events);
-      console.log('length of array --> ', events.length);
-      console.log('first event --> ', events[0]);
-
-      events.forEach(function (event) {
-
-        var dateOfEvent = null;
-
-        if (event.rawStartTime != undefined) {
-//          dateOfEvent = momentTZ(event.rawStartTime).tz("America/Los_Angeles").utcOffset(-12);
-          dateOfEvent = moment(event.rawStartTime);
-        } else {
-//          dateOfEvent = momentTZ(event.start).tz("America/Los_Angeles").utcOffset(-12);
-          dateOfEvent = moment(event.start);
-        }
-
-        var year = dateOfEvent.format('Y');
-        var month = dateOfEvent.format('M');
-        var day = dateOfEvent.format('D');
-
-        var currentEvent = {};
-
-    //    if (year == "2018") {
-//        if ((year == "2018") && ((month == "4") || (month == "5") || (month == "6"))) {
-        if ((year == "2018") &&  (month == "6")) {
-  //        if ((year == "2018") && ((month == "4"))) {
-    //    if ((year == "2018") && (month == "3") && (day == "10")) {
-
-          var today = momentTZ().tz("America/Los_Angeles");
-
-          if (event.rawStartTime != undefined) {
-//            var startTimeObject = momentTZ(event.rawStartTime).tz("America/Los_Angeles");
-            var startTimeObject = moment(event.rawStartTime);
-          } else {
-//            var startTimeObject = momentTZ(event.start).tz("America/Los_Angeles");
-            var startTimeObject = moment(event.start);
-          }
-
-          var eventDate = startTimeObject.format("YYYY-MM-DD");
-
-          currentEvent.eventDate = eventDate;
-          currentEvent.summary = event.summary;
-
-          arrayToPopulate.push(currentEvent);
-        }
-
-      });
-
-    }  // end of processTypeOfDay
-
-
 
 
 
@@ -148,9 +102,6 @@ function GetGoogleCalendarData(params ,callerCallback) {
         // if ((year == "2018") &&  (month == "6")) {
   //    if ((year == "2018") && (month == "3") && (day == "10")) {
 
-
-        //var today = momentTZ().tz("America/Los_Angeles");
-
         var startTimeObject = moment(event.start).utcOffset(-7);
 
         var startTime = startTimeObject.format("h a");
@@ -159,14 +110,10 @@ function GetGoogleCalendarData(params ,callerCallback) {
         var endTimeObject = moment(event.end).utcOffset(-7);
         var endTime = endTimeObject.format("h a");
 
-        // currentEvent.squad = assignSquad(event.summary);
-        // currentEvent.gender = assignGender(event.summary);
-        // currentEvent.eventType = "game";
+
         currentEvent.startTime = startTime;
         currentEvent.endTime = endTime;
         currentEvent.eventDate = eventDate;
-        // currentEvent.awayOrHome = awayOrHome(event.summary);
-        // currentEvent.location = event.location;
         currentEvent.summary = event.summary;
         currentEvent.description = event.description;
 
@@ -195,6 +142,29 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
   } // end of this.getCalendarDataById
 
+
+
+  this.getActivityCalendarData = function(callback) {
+
+    console.log('inside getActivityCalendarData');
+
+    console.log('self =-> ', self);
+
+    console.log('search for a calendar using =-> ', self.activityIdentifier);
+
+    var activityCalendar = returnGoogleCalendarObject(self.activityIdentifier);self.activityIdentifier
+
+    activityCalendar.getEvents(function(err, events) {
+      if (err) { return console.log(err.message); }
+
+      processCalenderData(self.schedule, events);
+
+      self.finalFilteredSchedule = self.schedule;  //TODO This is a shortcut!!!
+
+      callback();
+    });
+
+  } // end of this.getActivityCalendarData
 
 
   this.getLunchCalendarData = function(callback) {
@@ -432,7 +402,9 @@ exports.getActivityGoogleCalendarData = function(identifier, callerCallback) {
   console.log('Identifier: ', identifier);
 
   var params = {};
-  params.id = identifier;
+  params.activityId = identifier;
+
+  console.log('sending these params: ', params);
 
   var getGoogleCalendarData = new GetGoogleCalendarData(params,
                                                   callerCallback);
@@ -441,7 +413,7 @@ exports.getActivityGoogleCalendarData = function(identifier, callerCallback) {
 
     // IT ALL BEGINS HERE
     getGoogleCalendarData.initialize,
-    getGoogleCalendarData.getCalendarDataById,
+    getGoogleCalendarData.getActivityCalendarData,
     getGoogleCalendarData.filterTheSchedule,
     getGoogleCalendarData.sortTheArray,
     getGoogleCalendarData.callTheCallback

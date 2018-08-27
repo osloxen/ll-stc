@@ -19,11 +19,11 @@ provider:
 
 functions:
 
-  getAllActivities:
-    handler: front-office-handler.getAllActivities
+  getActivityInfo:
+    handler: activity-handler.getActivity
     events:
             - http:
-                path: /activities
+                path: /activity
                 method: get
 
   getHomework:
