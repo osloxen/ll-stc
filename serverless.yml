@@ -19,6 +19,21 @@ provider:
 
 functions:
 
+  getDataResources:
+    handler: school-data-resources.getAllResources
+    events:
+      - http:
+          path: /data-resources
+          method: get
+
+
+  getSchoolSchedule:
+    handler: front-office-handler.getSchoolSchedule
+    events:
+            - http:
+                path: /school-schedule
+                method: get
+
   getActivityInfo:
     handler: activity-handler.getActivity
     events:

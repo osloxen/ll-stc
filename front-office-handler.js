@@ -62,3 +62,38 @@ exports.getLunchDetails = function(event, context, callback) {
   ]);
 
 } //end of getLunchDetails
+
+
+
+exports.getSchoolSchedule = function(event, context, callback) {
+
+  console.log('Inside getSchoolSchedule');
+
+  console.log('event: ', event);
+  console.log('pathParameters: ', event.pathParameters);
+  console.log('query string parameters: ', event.queryStringParameters);
+
+
+  async.waterfall([
+          function(callback) {
+
+          googleCalendarData.getSchoolGoogleCalendarData(callback);
+        },
+        function(scheduleArray, callback) {
+          console.log('end of getSchoolSchedule Waterfall: ',scheduleArray);
+
+          var scheduleObject = {};
+          scheduleObject.schedule = scheduleArray;
+
+          const res = {
+              "statusCode": 200,
+              "headers": utilities.getHeaders(),
+              "body": JSON.stringify(scheduleObject) // body must be returned as a string
+            };
+
+          context.succeed(res);
+          callback();
+        }
+  ]);
+
+} //end of getSchoolSchedule

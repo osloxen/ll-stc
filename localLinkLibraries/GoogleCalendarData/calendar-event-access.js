@@ -5,6 +5,7 @@
 
 var async = require('async');
 var moment = require('moment');
+var _ = require('lodash');
 
 var PublicGoogleCalendar = require('public-google-calendar');
 
@@ -15,7 +16,13 @@ var algebraCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb
 var preAlgebraCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
 
 // ACTIVITY identifiers
-var gradeSixSoccer = new PublicGoogleCalendar({ calendarId: 'eslpummccchujmnpp6l8r2vtik@group.calendar.google.com' });
+var gradeFiveBoysSoccer = new PublicGoogleCalendar({ calendarId: 'tnachrf1483rbg2q74oo5o9rmqrein03@import.calendar.google.com' });
+var gradeSixGirlsSoccer = new PublicGoogleCalendar({ calendarId: 'l046havh0khioq8dcgi8bf68dnldt4da@import.calendar.google.com' });
+var gradeEightGirlsSoccer = new PublicGoogleCalendar({ calendarId: 'gba7s2m0b9360q6cb41qp5qlf5jsd8em@import.calendar.google.com'});
+
+// SCHOOL Schedule
+var schoolSchedule = new PublicGoogleCalendar({ calendarId: 'stcatherineschool.net_vaikl02ccmssqe58ondq7qq8lg@group.calendar.google.com' });
+
 
 
 function returnGoogleCalendarObject(identifier) {
@@ -35,8 +42,14 @@ function returnGoogleCalendarObject(identifier) {
     case "pre-algebra":
       googleCalendarObject = preAlgebraCalendar;
       break;
-    case "grade-six-soccer":
-      googleCalendarObject = gradeSixSoccer;
+    case "grade-6-girls-soccer":
+      googleCalendarObject = gradeSixGirlsSoccer;
+      break;
+    case "grade-8-girls-soccer":
+      googleCalendarObject = gradeEightGirlsSoccer;
+      break;
+    case "grade-5-boys-soccer":
+      googleCalendarObject = gradeFiveBoysSoccer;
       break;
     default:
       console.log('ERROR!!! Did not find a Google Calendar object for your ID =-> ', identifier);
@@ -53,6 +66,8 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
   self.callerCallback = callerCallback;
 
+
+
   this.initialize = function(callback) {
 
     console.log('inside initialize');
@@ -68,7 +83,10 @@ function GetGoogleCalendarData(params ,callerCallback) {
       self.activityIdentifier = params.activityId;
       console.log('identifier =-> ', self.activityIdentifier);
       console.log('Processing ACTIVITY Calendar data');
-    } else {
+    } else if (params.numDays != undefined) {
+      console.log('getting school calendar data');
+      console.log('Looking forward this many days: ', params.numDays);
+    }else {
       console.log('NO Known parameters used.');
     }
 
@@ -124,6 +142,89 @@ function GetGoogleCalendarData(params ,callerCallback) {
   } // end of processCalenderData
 
 
+  function processLunchCalenderData(arrayToPopulate, events) {
+
+    console.log('inside processLunchCalenderData');
+
+    console.log('First Event =-> ', events[0]);
+    console.log('Total number of events =-> ', events.length);
+
+    events.forEach(function (event) {
+
+      var dateOfEvent = moment(event.start);
+
+      var year = dateOfEvent.format('Y');
+      var month = dateOfEvent.format('M');
+      var day = dateOfEvent.format('D');
+
+      var currentEvent = {};
+
+     if ((year == "2018") || (year == "2019")) {
+
+        var startTimeObject = moment(event.start).utcOffset(-7);
+        var eventDate = startTimeObject.format("YYYY-MM-DD");
+
+        currentEvent.date = eventDate;
+        currentEvent.lunchDescription = event.summary;
+        if (event.summary == '') {
+          currentEvent.lunchAvailable = false;
+        } else {
+          currentEvent.lunchAvailable = true;
+        }
+
+        arrayToPopulate.push(currentEvent);
+      }
+
+    });
+  } // end of processLunchCalenderData
+
+
+
+
+    function processSchoolScheduleCalenderData(arrayToPopulate, events) {
+
+      console.log('inside processSchoolScheduleCalenderData');
+
+      console.log('First Event =-> ', events[0]);
+      console.log('Total number of events =-> ', events.length);
+
+      events.forEach(function (event) {
+
+        var dateOfEvent = moment(event.start);
+
+        var year = dateOfEvent.format('Y');
+        var month = dateOfEvent.format('M');
+        var day = dateOfEvent.format('D');
+
+        var currentEvent = {};
+
+       if ((year == "2018") || (year == "2019")) {
+    //      if ((year == "2018") && ((month == "4") || (month == "5") || (month == "6"))) {
+          // if ((year == "2018") &&  (month == "6")) {
+    //    if ((year == "2018") && (month == "3") && (day == "10")) {
+
+          var startTimeObject = moment(event.start).utcOffset(-7);
+
+          var startTime = startTimeObject.format("h a");
+          var eventDate = startTimeObject.format("YYYY-MM-DD");
+          // var endTimeObject = momentTZ(event.end).tz("America/Los_Angeles");
+          var endTimeObject = moment(event.end).utcOffset(-7);
+          var endTime = endTimeObject.format("h a");
+
+
+          currentEvent.startTime = startTime;
+          currentEvent.endTime = endTime;
+          currentEvent.date = eventDate;
+          currentEvent.summary = event.summary;
+          currentEvent.description = event.description;
+
+          arrayToPopulate.push(currentEvent);
+        }
+
+      });
+    } // end of processSchoolScheduleCalenderData
+
+
   this.getCalendarDataById = function(callback) {
 
     console.log('inside getCalendarDataById');
@@ -144,15 +245,35 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
 
 
+  this.getSchoolScheduleCalendarData = function(callback) {
+
+    console.log('inside getSchoolScheduleCalendarData');
+
+    //console.log('self =-> ', self);
+
+    schoolSchedule.getEvents(function(err, events) {
+      if (err) { return console.log(err.message); }
+
+      processCalenderData(self.schedule, events);
+
+      self.finalFilteredSchedule = self.schedule;  //TODO This is a shortcut!!!
+
+      callback();
+    });
+
+  } // end of this.getSchoolScheduleCalendarData
+
+
+
   this.getActivityCalendarData = function(callback) {
 
     console.log('inside getActivityCalendarData');
 
-    console.log('self =-> ', self);
+    //console.log('self =-> ', self);
 
     console.log('search for a calendar using =-> ', self.activityIdentifier);
 
-    var activityCalendar = returnGoogleCalendarObject(self.activityIdentifier);self.activityIdentifier
+    var activityCalendar = returnGoogleCalendarObject(self.activityIdentifier);
 
     activityCalendar.getEvents(function(err, events) {
       if (err) { return console.log(err.message); }
@@ -167,6 +288,7 @@ function GetGoogleCalendarData(params ,callerCallback) {
   } // end of this.getActivityCalendarData
 
 
+
   this.getLunchCalendarData = function(callback) {
 
     console.log('inside getLunchCalendarData');
@@ -176,7 +298,9 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
       console.log('lunch events =-> ', events);
 
-      processCalenderData(self.schedule, events);
+      processLunchCalenderData(self.schedule, events);
+
+      console.log('schedule after process lunch dates =-> ', self.schedule);
 
       self.finalFilteredSchedule = self.schedule;  //TODO This is a shortcut!!!
 
@@ -247,6 +371,34 @@ function GetGoogleCalendarData(params ,callerCallback) {
       // to get a value that is either negative, positive, or zero.
       return new Date(a.eventDate) - new Date(b.eventDate);
     });
+
+    callback();
+  }
+
+
+  this.addAlexaLunchResponse = function(callback) {
+
+    console.log('Inside addAlexaLunchResponse');
+
+    console.log('Looking for lunch date =-> ', params.lunchDate);
+
+    var lunchRequested = _.find(self.finalFilteredSchedule, function(o) {
+      return o.date == params.lunchDate; });
+
+    console.log('Lunch found =-> ', lunchRequested);
+
+    if (lunchRequested == undefined) {
+      self.alexaResponse = "There is no lunch on " + params.lunchDate;
+    } else if (lunchRequested.lunchAvailable == false) {
+      self.alexaResponse = "There is no lunch on " + params.lunchDate;
+    } else if (lunchRequested.lunchAvailable == true) {
+      self.alexaResponse = "Lunch on " + params.lunchDate + " is " +
+                            lunchRequested.lunchDescription + ".";
+    } else {
+      self.alexaResponse = "I am sorry.  There was a problem getting your lunch information.  It is me not you.";
+    }
+
+    console.log('Alexa reponse is: ', self.alexaResponse);
 
     callback();
   }
@@ -334,9 +486,21 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
   this.callTheCallback = function(callback) {
 
-    console.log('inside returnData');
+    console.log('inside callTheCallback');
 
     self.callerCallback(null, self.finalFilteredSchedule);
+  }
+
+
+  this.lunchCallTheCallback = function(callback) {
+
+    console.log('inside lunchCallTheCallback');
+
+    var returnObject = {};
+    returnObject.alexaResponse = self.alexaResponse;
+    returnObject.lunchScheduleArray = self.finalFilteredSchedule;
+
+    self.callerCallback(null, returnObject);
   }
 
 } // end of GetGoogleCalendarData
@@ -388,7 +552,8 @@ exports.getGoogleLunchCalendarData = function(lunchDate, callerCallback) {
     getGoogleCalendarData.initialize,
     getGoogleCalendarData.getLunchCalendarData,
     getGoogleCalendarData.sortTheArray,
-    getGoogleCalendarData.callTheCallback
+    getGoogleCalendarData.addAlexaLunchResponse,
+    getGoogleCalendarData.lunchCallTheCallback
   ]
 );
 
@@ -421,3 +586,29 @@ exports.getActivityGoogleCalendarData = function(identifier, callerCallback) {
 );
 
 }; // end of getActivityGoogleCalendarData
+
+
+exports.getSchoolGoogleCalendarData = function(callerCallback) {
+
+  console.log('*** inside getSchoolGoogleCalendarData ***');
+
+  var params = {};
+  params.numDays = 30;  // number of days to look ahead.
+
+  console.log('sending these params: ', params);
+
+  var getGoogleCalendarData = new GetGoogleCalendarData(params,
+                                                  callerCallback);
+
+  async.waterfall([
+
+    // IT ALL BEGINS HERE
+    getGoogleCalendarData.initialize,
+    getGoogleCalendarData.getSchoolScheduleCalendarData,
+    getGoogleCalendarData.filterTheSchedule,
+    getGoogleCalendarData.sortTheArray,
+    getGoogleCalendarData.callTheCallback
+  ]
+);
+
+}; // end of getSchoolGoogleCalendarData
