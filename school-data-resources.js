@@ -45,18 +45,10 @@ module.exports.getAllResources = function(event, context, callback) {
   preAlgebra.identifier = "pre-algebra";
   preAlgebra.displayName = "Pre-Algebra";
 
-
-  resourceData.homework = {};
-  resourceData.homework.resourceList = [
-    algebra,
-    turner,
-    preAlgebra
-  ];
-
   var grade5BoysSoccer = {};
-  grade5GirlsSoccer.menuItem = "Sports";
-  grade5GirlsSoccer.identifier = "grade-5-boys-soccer";
-  grade5GirlsSoccer.displayName = "Grade 5 Boys Soccer";
+  grade5BoysSoccer.menuItem = "Sports";
+  grade5BoysSoccer.identifier = "grade-5-boys-soccer";
+  grade5BoysSoccer.displayName = "Grade 5 Boys Soccer";
 
   var grade6GirlsSoccer = {};
   grade6GirlsSoccer.menuItem = "Sports";
@@ -69,12 +61,14 @@ module.exports.getAllResources = function(event, context, callback) {
   grade8GirlsSoccer.displayName = "Grade 8 Girls Soccer";
 
 
-  resourceData.activities = {};
-  resourceData.activities.resourceList = [
+  resourceData.resourceList = [
+    algebra,
+    turner,
+    preAlgebra,
     grade5BoysSoccer,
     grade6GirlsSoccer,
     grade8GirlsSoccer
-  ]
+  ];
 
   const res = {
       "statusCode": 200,
