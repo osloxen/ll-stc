@@ -12,8 +12,13 @@ var PublicGoogleCalendar = require('public-google-calendar');
 // HOMEWORK identifiers
 var lunchCalendar = new PublicGoogleCalendar({ calendarId: 'rdo5he40sbe79r5ei2ph1kp92c@group.calendar.google.com' });
 var mrTurnerCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
-var algebraCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
-var preAlgebraCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
+
+// Turner
+var turnerAlgebra = new PublicGoogleCalendar({ calendarId: 'len72m0aepjtnkrm21tks4nboo@group.calendar.google.com' });
+var turnerPreAlgebra = new PublicGoogleCalendar({ calendarId: 'vd6p1f3e7hr0dq9eusm6hp1tn0@group.calendar.google.com' });
+var turnerGeometry = new PublicGoogleCalendar({ calendarId: 'sfakunnnjrocj5te243s5ru530@group.calendar.google.com' });
+var turnerReligion7 = new PublicGoogleCalendar({ calendarId: 'nkjo2dfce0fdu6ljdsth8iafcs@group.calendar.google.com' });
+
 
 // ACTIVITY identifiers
 var gradeFiveBoysSoccer = new PublicGoogleCalendar({ calendarId: 'tnachrf1483rbg2q74oo5o9rmqrein03@import.calendar.google.com' });
@@ -36,11 +41,17 @@ function returnGoogleCalendarObject(identifier) {
     case "turner":
       googleCalendarObject = mrTurnerCalendar;
       break;
-    case "algebra":
-      googleCalendarObject = algebraCalendar;
+    case "turner-religion-7":
+      googleCalendarObject = turnerReligion7;
       break;
-    case "pre-algebra":
-      googleCalendarObject = preAlgebraCalendar;
+    case "turner-geometry":
+      googleCalendarObject = turnerGeometry;
+      break;
+    case "turner-algebra":
+      googleCalendarObject = turnerAlgebra;
+      break;
+    case "turner-pre-algebra":
+      googleCalendarObject = turnerPreAlgebra;
       break;
     case "grade-6-girls-soccer":
       googleCalendarObject = gradeSixGirlsSoccer;
