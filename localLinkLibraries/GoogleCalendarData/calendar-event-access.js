@@ -10,23 +10,59 @@ var _ = require('lodash');
 var PublicGoogleCalendar = require('public-google-calendar');
 
 // HOMEWORK identifiers
-var lunchCalendar = new PublicGoogleCalendar({ calendarId: 'rdo5he40sbe79r5ei2ph1kp92c@group.calendar.google.com' });
+const lunchCalendar = new PublicGoogleCalendar({ calendarId: 'rdo5he40sbe79r5ei2ph1kp92c@group.calendar.google.com' });
 var mrTurnerCalendar = new PublicGoogleCalendar({ calendarId: 'si41ck4q7o28rbqcrb70bdnp7s@group.calendar.google.com' });
 
+
+// Acosta
+const acostaELA5 = new PublicGoogleCalendar({ calendarId: '7lkojis7fq4s8v1qblj2e8e028@group.calendar.google.com'});
+const acostaELA6 = new PublicGoogleCalendar({ calendarId: 'jkfl69kqehpn2pbhtkkdtntrt4@group.calendar.google.com'});
+const acostaReligion6 = new PublicGoogleCalendar({ calendarId: 'g7peo7iec7d18o6rvkgr2hnl4c@group.calendar.google.com'});
+
+
+// Horrigan
+const horriganWorldCiv = new PublicGoogleCalendar({ calendarId: 'og37knpo70e3ftf2n7qn07jgp4@group.calendar.google.com'});
+const horriganWaHistory = new PublicGoogleCalendar({ calendarId: 'kcu29c9celdop48esudq8gnna0@group.calendar.google.com'});
+const horriganReligion8 = new PublicGoogleCalendar({ calendarId: 'ufgh7ags55frvi26m78q28rsns@group.calendar.google.com'});
+const horriganUSHistory = new PublicGoogleCalendar({ calendarId: 'v1fhp793h935j7qleqqf03rvl4@group.calendar.google.com'});
+
+// Karll
+const karllReligion5 = new PublicGoogleCalendar({ calendarId: 'b08bh8kdd5705b0cp44i1g9q5k@group.calendar.google.com'});
+const karllSpanish5 = new PublicGoogleCalendar({ calendarId: 'gshnc4ceodpvj4kef8pula4fmc@group.calendar.google.com'});
+const karllSpanish6 = new PublicGoogleCalendar({ calendarId: 'uj7gbvvdpd5vs3qf3prj3ds2no@group.calendar.google.com'});
+const karllSpanish7 = new PublicGoogleCalendar({ calendarId: '5oibparra1lusncdsop8t7tsrg@group.calendar.google.com'});
+const karllSpanish8 = new PublicGoogleCalendar({ calendarId: 'fcatrgp2tc109mt4lseuduk334@group.calendar.google.com'});
+
+
+// Kauffmann
+const kauffmannMusic5 = new PublicGoogleCalendar({ calendarId: 'd6hfcqsr6pl3joa5q88m4ctojo@group.calendar.google.com'});
+const kauffmannMusic6 = new PublicGoogleCalendar({ calendarId: 'sgo7o183pivksjcd4cqhkqblek@group.calendar.google.com'});
+const kauffmannMusic7 = new PublicGoogleCalendar({ calendarId: 'ulprcopgkufaprcgqk10dulcpc@group.calendar.google.com'});
+const kauffmannMusic8 = new PublicGoogleCalendar({ calendarId: 'mp8hg00r3tr2ta4quut3lmafus@group.calendar.google.com'});
+const kauffmannEnglish7 = new PublicGoogleCalendar({ calendarId: 'vn9k1tah2n3d42fqtm0545ea1c@group.calendar.google.com'});
+const kauffmannEnglish8 = new PublicGoogleCalendar({ calendarId: 'kmj0589j3obciio14db37kl6sc@group.calendar.google.com'});
+
+
+// Payne
+const payneScience6 = new PublicGoogleCalendar({ calendarId: '0tl1hr5vutnchvqgfkj9ul8spo@group.calendar.google.com'});
+const payneScience6and7 = new PublicGoogleCalendar({ calendarId: 'f52a5u5kbbpisomfoll1hefu0s@group.calendar.google.com'});
+const payneScience7 = new PublicGoogleCalendar({ calendarId: 'l2345qr4mksrrrhf50c63ebr24@group.calendar.google.com'});
+const payneScience8 = new PublicGoogleCalendar({ calendarId: 'tq2np4ofr12dfa0d590seftfb0@group.calendar.google.com'});
+
 // Turner
-var turnerAlgebra = new PublicGoogleCalendar({ calendarId: 'len72m0aepjtnkrm21tks4nboo@group.calendar.google.com' });
-var turnerPreAlgebra = new PublicGoogleCalendar({ calendarId: 'vd6p1f3e7hr0dq9eusm6hp1tn0@group.calendar.google.com' });
-var turnerGeometry = new PublicGoogleCalendar({ calendarId: 'sfakunnnjrocj5te243s5ru530@group.calendar.google.com' });
-var turnerReligion7 = new PublicGoogleCalendar({ calendarId: 'nkjo2dfce0fdu6ljdsth8iafcs@group.calendar.google.com' });
+const turnerAlgebra = new PublicGoogleCalendar({ calendarId: 'len72m0aepjtnkrm21tks4nboo@group.calendar.google.com' });
+const turnerPreAlgebra = new PublicGoogleCalendar({ calendarId: 'vd6p1f3e7hr0dq9eusm6hp1tn0@group.calendar.google.com' });
+const turnerGeometry = new PublicGoogleCalendar({ calendarId: 'sfakunnnjrocj5te243s5ru530@group.calendar.google.com' });
+const turnerReligion7 = new PublicGoogleCalendar({ calendarId: 'nkjo2dfce0fdu6ljdsth8iafcs@group.calendar.google.com' });
 
 
 // ACTIVITY identifiers
-var gradeFiveBoysSoccer = new PublicGoogleCalendar({ calendarId: 'tnachrf1483rbg2q74oo5o9rmqrein03@import.calendar.google.com' });
-var gradeSixGirlsSoccer = new PublicGoogleCalendar({ calendarId: 'l046havh0khioq8dcgi8bf68dnldt4da@import.calendar.google.com' });
-var gradeEightGirlsSoccer = new PublicGoogleCalendar({ calendarId: 'gba7s2m0b9360q6cb41qp5qlf5jsd8em@import.calendar.google.com'});
+const gradeFiveBoysSoccer = new PublicGoogleCalendar({ calendarId: 'tnachrf1483rbg2q74oo5o9rmqrein03@import.calendar.google.com' });
+const gradeSixGirlsSoccer = new PublicGoogleCalendar({ calendarId: 'l046havh0khioq8dcgi8bf68dnldt4da@import.calendar.google.com' });
+const gradeEightGirlsSoccer = new PublicGoogleCalendar({ calendarId: 'gba7s2m0b9360q6cb41qp5qlf5jsd8em@import.calendar.google.com'});
 
 // SCHOOL Schedule
-var schoolSchedule = new PublicGoogleCalendar({ calendarId: 'stcatherineschool.net_vaikl02ccmssqe58ondq7qq8lg@group.calendar.google.com' });
+const schoolSchedule = new PublicGoogleCalendar({ calendarId: 'stcatherineschool.net_vaikl02ccmssqe58ondq7qq8lg@group.calendar.google.com' });
 
 
 
