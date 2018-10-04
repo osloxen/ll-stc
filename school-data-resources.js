@@ -31,137 +31,137 @@ module.exports.getAllResources = function(event, context, callback) {
   var resourceData = {};
 
   var acostaELA5 = {};
-  algebra.menuItem = "Homework";
-  algebra.identifier = "acosta-ela-5";
-  algebra.displayName = "Acosta ELA 5";
+  acostaELA5.menuItem = "Homework";
+  acostaELA5.identifier = "acosta-ela-5";
+  acostaELA5.displayName = "Acosta ELA 5";
 
   var acostaELA6 = {};
-  algebra.menuItem = "Homework";
-  algebra.identifier = "acosta-ela-6";
-  algebra.displayName = "Acosta ELA 6";
+  acostaELA6.menuItem = "Homework";
+  acostaELA6.identifier = "acosta-ela-6";
+  acostaELA6.displayName = "Acosta ELA 6";
 
   var acostaReligion6 = {};
-  algebra.menuItem = "Homework";
-  algebra.identifier = "acosta-religion-6";
-  algebra.displayName = "Acosta Religion 6";
+  acostaReligion6.menuItem = "Homework";
+  acostaReligion6.identifier = "acosta-religion-6";
+  acostaReligion6.displayName = "Acosta Religion 6";
 
   var horriganWorldCiv = {};
-  algebra.menuItem = "Homework";
-  algebra.identifier = "horrigan-world-civ";
-  algebra.displayName = "Horrigan 6th World Civilizations";
+  horriganWorldCiv.menuItem = "Homework";
+  horriganWorldCiv.identifier = "horrigan-world-civ";
+  horriganWorldCiv.displayName = "Horrigan 6th World Civilizations";
 
   var horriganWaHistory = {};
-  turner.menuItem = "Homework";
-  turner.identifier = "horrigan-wa-history";
-  turner.displayName = "Horrigan Washington State History";
+  horriganWaHistory.menuItem = "Homework";
+  horriganWaHistory.identifier = "horrigan-wa-history";
+  horriganWaHistory.displayName = "Horrigan Washington State History";
 
   var horriganReligion8 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "horrigan-religion-8";
-  preAlgebra.displayName = "Horrigan Religion 8";
+  horriganReligion8.menuItem = "Homework";
+  horriganReligion8.identifier = "horrigan-religion-8";
+  horriganReligion8.displayName = "Horrigan Religion 8";
 
   var horriganUSHistory = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "horrigan-us-history";
-  preAlgebra.displayName = "Horrigan US History";
+  horriganUSHistory.menuItem = "Homework";
+  horriganUSHistory.identifier = "horrigan-us-history";
+  horriganUSHistory.displayName = "Horrigan US History";
 
   var karllReligion5 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "karll-religion-5";
-  preAlgebra.displayName = "Karll Religion 5";
+  karllReligion5.menuItem = "Homework";
+  karllReligion5.identifier = "karll-religion-5";
+  karllReligion5.displayName = "Karll Religion 5";
 
 
   var karllSpanish5 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "karll-spanish-5";
-  preAlgebra.displayName = "Karll Spanish 5";
+  karllSpanish5.menuItem = "Homework";
+  karllSpanish5.identifier = "karll-spanish-5";
+  karllSpanish5.displayName = "Karll Spanish 5";
 
 
   var karllSpanish6 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "karll-spanish-6";
-  preAlgebra.displayName = "Karll Spanish 6";
+  karllSpanish6.menuItem = "Homework";
+  karllSpanish6.identifier = "karll-spanish-6";
+  karllSpanish6.displayName = "Karll Spanish 6";
 
 
   var karllSpanish7 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "karll-spanish-7";
-  preAlgebra.displayName = "Karll Spanish 7";
+  karllSpanish7.menuItem = "Homework";
+  karllSpanish7.identifier = "karll-spanish-7";
+  karllSpanish7.displayName = "Karll Spanish 7";
 
   var karllSpanish8 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "karll-spanish-8";
-  preAlgebra.displayName = "Karll Spanish 8";
+  karllSpanish8.menuItem = "Homework";
+  karllSpanish8.identifier = "karll-spanish-8";
+  karllSpanish8.displayName = "Karll Spanish 8";
 
   var kauffmannMusic5 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "kauffmann-music-5";
-  preAlgebra.displayName = "Kauffmann Music 5";
+  kauffmannMusic5.menuItem = "Homework";
+  kauffmannMusic5.identifier = "kauffmann-music-5";
+  kauffmannMusic5.displayName = "Kauffmann Music 5";
 
   var kauffmannMusic6 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "kauffmann-music-6";
-  preAlgebra.displayName = "Kauffmann Music 6";
+  kauffmannMusic6.menuItem = "Homework";
+  kauffmannMusic6.identifier = "kauffmann-music-6";
+  kauffmannMusic6.displayName = "Kauffmann Music 6";
 
   var kauffmannMusic7 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "kauffmann-music-7";
-  preAlgebra.displayName = "Kauffmann Music 7";
+  kauffmannMusic7.menuItem = "Homework";
+  kauffmannMusic7.identifier = "kauffmann-music-7";
+  kauffmannMusic7.displayName = "Kauffmann Music 7";
 
   var kauffmannMusic8 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "kauffmann-music-8";
-  preAlgebra.displayName = "Kauffmann Music 8";
+  kauffmannMusic8.menuItem = "Homework";
+  kauffmannMusic8.identifier = "kauffmann-music-8";
+  kauffmannMusic8.displayName = "Kauffmann Music 8";
 
   var kauffmannEnglish7 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "kauffmann-english-7";
-  preAlgebra.displayName = "Kauffmann English 7";
+  kauffmannEnglish7.menuItem = "Homework";
+  kauffmannEnglish7.identifier = "kauffmann-english-7";
+  kauffmannEnglish7.displayName = "Kauffmann English 7";
 
   var kauffmannEnglish8 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "kauffmann-english-8";
-  preAlgebra.displayName = "Kauffmann English 8";
+  kauffmannEnglish8.menuItem = "Homework";
+  kauffmannEnglish8.identifier = "kauffmann-english-8";
+  kauffmannEnglish8.displayName = "Kauffmann English 8";
 
   var payneScience6 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "payne-science-6";
-  preAlgebra.displayName = "Payne Science 6 (Nug Life)";
+  payneScience6.menuItem = "Homework";
+  payneScience6.identifier = "payne-science-6";
+  payneScience6.displayName = "Payne Science 6 (Nug Life)";
 
   var payneScience6and7 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "payne-science-6and7";
-  preAlgebra.displayName = "Payne Science 6/7 (Yo Gabba Gabba)";
+  payneScience6and7.menuItem = "Homework";
+  payneScience6and7.identifier = "payne-science-6and7";
+  payneScience6and7.displayName = "Payne Science 6/7 (Yo Gabba Gabba)";
 
   var payneScience7 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "payne-science-7";
-  preAlgebra.displayName = "Payne Science 7 (Veggie Tales)";
+  payneScience7.menuItem = "Homework";
+  payneScience7.identifier = "payne-science-7";
+  payneScience7.displayName = "Payne Science 7 (Veggie Tales)";
 
   var payneScience8 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "payne-science-8";
-  preAlgebra.displayName = "Payne Science 8 (Spy Kids)";
+  payneScience8.menuItem = "Homework";
+  payneScience8.identifier = "payne-science-8";
+  payneScience8.displayName = "Payne Science 8 (Spy Kids)";
 
   var turnerReligion7 = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "turner-religion-7";
-  preAlgebra.displayName = "Turner Religion 7";
+  turnerReligion7.menuItem = "Homework";
+  turnerReligion7.identifier = "turner-religion-7";
+  turnerReligion7.displayName = "Turner Religion 7";
 
   var turnerAlgebra = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "turner-algebra";
-  preAlgebra.displayName = "Turner Algebra";
+  turnerAlgebra.menuItem = "Homework";
+  turnerAlgebra.identifier = "turner-algebra";
+  turnerAlgebra.displayName = "Turner Algebra";
 
   var turnerGeometry = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "turner-geometry";
-  preAlgebra.displayName = "Turner Geometry";
+  turnerGeometry.menuItem = "Homework";
+  turnerGeometry.identifier = "turner-geometry";
+  turnerGeometry.displayName = "Turner Geometry";
 
   var turnerPreAlgebra = {};
-  preAlgebra.menuItem = "Homework";
-  preAlgebra.identifier = "turner-pre-algebra";
-  preAlgebra.displayName = "Turner Pre-Algebra";
+  turnerPreAlgebra.menuItem = "Homework";
+  turnerPreAlgebra.identifier = "turner-pre-algebra";
+  turnerPreAlgebra.displayName = "Turner Pre-Algebra";
 
 
   var grade5BoysSoccer = {};

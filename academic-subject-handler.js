@@ -47,6 +47,8 @@ exports.getHomework = function(event, context, callback) {
     console.log('ERROR - No Subject or teacher found.  Return some error code.');
   }
 
+  // TODO this is where you would select the calender or spreadsheet id
+
   // TODO: end processing here if there is no teacher given.
 
   async.waterfall([

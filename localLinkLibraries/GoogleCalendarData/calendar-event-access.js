@@ -74,6 +74,42 @@ function returnGoogleCalendarObject(identifier) {
   var googleCalendarObject = undefined;
 
   switch (identifier) {
+    case "karll-religion-5":
+      googleCalendarObject = karllReligion5;
+      break;
+    case "karll-spanish-5":
+      googleCalendarObject = karllSpanish5;
+      break;
+    case "karll-spanish-6":
+      googleCalendarObject = karllSpanish6;
+      break;
+    case "karll-spanish-7":
+      googleCalendarObject = karllSpanish7;
+      break;
+    case "karll-spanish-8":
+      googleCalendarObject = karllSpanish8;
+      break;
+    case "horrigan-us-history":
+      googleCalendarObject = horriganUSHistory;
+      break;
+    case "horrigan-religion-8":
+      googleCalendarObject = horriganReligion8;
+      break;
+    case "horrigan-world-civ":
+      googleCalendarObject = horriganWorldCiv;
+      break;
+    case "horrigan-wa-history":
+      googleCalendarObject = horriganWaHistory;
+      break;
+    case "acosta-religion-6":
+      googleCalendarObject = acostaReligion6;
+      break;
+    case "acosta-ela-6":
+      googleCalendarObject = acostaELA6;
+      break;
+    case "acosta-ela-5":
+      googleCalendarObject = acostaELA5;
+      break;
     case "turner":
       googleCalendarObject = mrTurnerCalendar;
       break;
