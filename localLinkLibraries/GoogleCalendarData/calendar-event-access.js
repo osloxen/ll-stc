@@ -410,8 +410,9 @@ function GetGoogleCalendarData(params ,callerCallback) {
       var dateInQuestion = moment(eventInstance.eventDate);
       var today = moment();
       // moment("12-25-1995", "MM-DD-YYYY");
+      var twoWeeksAgo = today.subtract(2, 'w');
 
-      if (dateInQuestion.isSameOrAfter(today)) {
+      if (dateInQuestion.isSameOrAfter(twoWeeksAgo)) {
         return true;
       }
     });
@@ -472,11 +473,14 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
     if (lunchRequested == undefined) {
       self.alexaResponse = "There is no lunch on " + params.lunchDate;
+      self.lunchAnswer = "No lunch";
     } else if (lunchRequested.lunchAvailable == false) {
       self.alexaResponse = "There is no lunch on " + params.lunchDate;
+      self.lunchAnswer = "No lunch on this day";
     } else if (lunchRequested.lunchAvailable == true) {
       self.alexaResponse = "Lunch on " + params.lunchDate + " is " +
                             lunchRequested.lunchDescription + ".";
+      self.lunchAnswer = lunchRequested.lunchDescription;
     } else {
       self.alexaResponse = "I am sorry.  There was a problem getting your lunch information.  It is me not you.";
     }
@@ -581,6 +585,7 @@ function GetGoogleCalendarData(params ,callerCallback) {
 
     var returnObject = {};
     returnObject.alexaResponse = self.alexaResponse;
+    returnObject.lunchAnswer = self.lunchAnswer;
     returnObject.lunchScheduleArray = self.finalFilteredSchedule;
 
     self.callerCallback(null, returnObject);
