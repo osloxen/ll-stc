@@ -217,6 +217,7 @@ function GetGoogleCalendarData(params ,callerCallback) {
         currentEvent.eventDate = eventDate;
         currentEvent.summary = event.summary;
         currentEvent.description = event.description;
+        currentEvent.id = event.id;
 
         arrayToPopulate.push(currentEvent);
       }
